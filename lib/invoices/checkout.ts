@@ -42,7 +42,7 @@ export default class CheckoutInvoice extends Invoice {
      */
     async confirm(givenToken?: string) {
         const token = givenToken ? givenToken : this.token;
-        this.client.axios
+        return this.client.axios
             .get(`/checkout-invoice/confirm/${token}`)
             .then((res) => {
                 const body = res.data;

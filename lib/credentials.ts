@@ -1,4 +1,4 @@
-import axios, {Axios, InternalAxiosRequestConfig} from "axios"
+import {InternalAxiosRequestConfig} from "axios"
 type Environment = "live" | "test"
 
 interface SetupOptions {
