@@ -1,5 +1,5 @@
 import { PaydunyaClient } from "../client";
-import { PaymentChannel } from "../types";
+import { PaymentChannel } from "../constants";
 
 interface InvoiceItem {
   name: string;
