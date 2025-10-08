@@ -1,5 +1,5 @@
 import { PaydunyaClient } from "../client";
-import { ApiRoutes, ResponseCode } from "../constantes";
+import { ApiRoutes, ResponseCode } from "../constants";
 import { ResponseError } from "../errors";
 import { Invoice } from "./invoice";
 

@@ -1,7 +1,7 @@
 import util from "util";
 import { PaydunyaClient } from "./client";
 import { ResponseError } from "./errors";
-import { ApiRoutes } from "./constantes";
+import { ApiRoutes, ResponseCode } from "./constants";
 
 export class DirectPay {
   private client: PaydunyaClient;
@@ -27,7 +27,7 @@ export class DirectPay {
 
     const res = await this.client.axios.post(ApiRoutes.CREDIT_ACCOUNT, body);
 
-    if (res.data.response_code === "00") {
+    if (res.data.response_code === ResponseCode.success) {
       this.responseText = res.data.response_text;
       this.description = res.data.description;
       this.transactionID = res.data.transaction_id;

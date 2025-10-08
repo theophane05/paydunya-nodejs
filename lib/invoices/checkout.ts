@@ -1,7 +1,7 @@
 import { Invoice } from "./invoice";
 import { PaydunyaClient } from "../client";
 import { ResponseError } from "../errors";
-import { ApiRoutes, ResponseCode, Status } from "../constantes";
+import { ApiRoutes, ResponseCode, Status } from "../constants";
 
 export default class CheckoutInvoice extends Invoice {
   token?: string;
@@ -50,7 +50,7 @@ export default class CheckoutInvoice extends Invoice {
         if (body.response_code === ResponseCode.success) {
           this.status = body.status;
           this.responseText = body.response_text;
-          if (this.status === Status.Completed) {
+          if (this.status === Status.COMPLETED) {
             this.customer = body.customer;
             this.receiptURL = body.receipt_url;
             this.receipt_identifier = body.receipt_identifier;

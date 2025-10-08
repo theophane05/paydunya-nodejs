@@ -1,8 +1,8 @@
 export enum Status {
-  Completed = "completed",
-  Canceled = "canceled",
-  Pending = "pending",
-  Failed = "failed",
+  COMPLETED = "completed",
+  CANCELLED = "cancelled",
+  PENDING = "pending",
+  FAILED = "failed",
 }
 
 export enum ResponseCode {
