@@ -38,3 +38,12 @@ export enum PaymentChannel {
     OrangeMoneyBurkina = "orange-money-burkina",
     MoovBurkinaFaso = "moov-burkina-faso"
 }
+
+export const SUPPORTED_COUNTRY_CODES = {
+    SN: "SN",
+    CI: "CI",
+    BJ: "BJ",
+    TG: "TG",
+    ML: "ML",
+    BF: "BF"
+} as const;

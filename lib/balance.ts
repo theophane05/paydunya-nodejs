@@ -1,17 +1,8 @@
 import { PaydunyaClient } from "./client";
 import axios, { Axios } from "axios";
-import { ApiRoutes } from "./constants";
+import { ApiRoutes, SUPPORTED_COUNTRY_CODES } from "./constants";
 
-const CountryCodes = {
-    SN: "SN",
-    CI: "CI",
-    BJ: "BJ",
-    TG: "TG",
-    ML: "ML",
-    BF: "BF"
-}  as const;
-
-type SupportedCountryCode = keyof typeof CountryCodes
+type SupportedCountryCode = keyof typeof SUPPORTED_COUNTRY_CODES;
 
 type BalanceByCountryKey = `Balance ${SupportedCountryCode}`
 
@@ -65,7 +56,7 @@ export class Balance {
                 if (result.data.success) {
                     
                     let items: { [key in SupportedCountryCode]?: Money } = {};
-                    Object.keys(CountryCodes).forEach((country) => {
+                    Object.keys(SUPPORTED_COUNTRY_CODES).forEach((country) => {
                         (items as any)[country] = Money.parse((result.data as any)[`Balance ${country}`])
                     });
 
