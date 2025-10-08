@@ -2,16 +2,22 @@ import { PaydunyaClient } from "./client";
 import axios, { Axios } from "axios";
 import { ApiRoutes } from "./constants";
 
-type SupportedCountryCode = "SN" | "CI" | "BJ" | "TG" | "ML" | "BF"
+const CountryCodes = {
+    SN: "SN",
+    CI: "CI",
+    BJ: "BJ",
+    TG: "TG",
+    ML: "ML",
+    BF: "BF"
+}  as const;
 
-interface BalanceByCountry {
-    ["Balance SN"]: string;
-    ["Balance CI"]: string;
-    ["Balance BJ"]: string;
-    ["Balance TG"]: string;
-    ["Balance ML"]: string;
-    ["Balance BF"]: string;
-}
+type SupportedCountryCode = keyof typeof CountryCodes
+
+type BalanceByCountryKey = `Balance ${SupportedCountryCode}`
+
+type BalanceByCountry = {
+    [key in BalanceByCountryKey]: string;
+};
 
 interface BalanceResult extends BalanceByCountry {
     success: boolean;
@@ -23,13 +29,18 @@ interface AccountBalanceResult extends Partial<BalanceByCountry> {
     description: string;
 }
 
-export class Money {
+class Money {
     amount: number;
     currency: string;
 
     constructor(amount: number, currency: string) {
         this.amount = amount;
         this.currency = currency;
+    }
+
+    static parse(value: string) {
+        let [amount, currency] = value.split(" ")
+        return new Money(parseFloat(amount), currency.trim())
     }
 }
 
@@ -52,7 +63,13 @@ export class Balance {
         return this.client.axios.get<BalanceResult>(ApiRoutes.CHECK_BALANCE)
             .then((result) => {
                 if (result.data.success) {
-                    return result.data
+                    
+                    let items: { [key in SupportedCountryCode]?: Money } = {};
+                    Object.keys(CountryCodes).forEach((country) => {
+                        (items as any)[country] = Money.parse((result.data as any)[`Balance ${country}`])
+                    });
+
+                    return items;
                 }
                 return undefined;
             });
@@ -60,9 +77,8 @@ export class Balance {
 
     async getBalanceByCountry(country: SupportedCountryCode) {
         let result = await this.getAll()
-        if (result && Object.keys(result).includes(`Balance ${country}`)) {
-            let [amount, currency] = result[`Balance ${country}`].split(" ")
-            return new Money(parseFloat(amount), currency);
+        if (result && result[country]) {
+            return result[country];
         }
     }
 
