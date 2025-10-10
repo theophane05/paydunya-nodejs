@@ -1,5 +1,5 @@
-import { PaydunyaClient } from "./client";
-import axios, { Axios } from "axios";
+import { Transport } from "./transport";
+import axios, { AxiosInstance } from "axios";
 import { ApiRoutes, SUPPORTED_COUNTRY_CODES } from "./constants";
 
 type SupportedCountryCode = keyof typeof SUPPORTED_COUNTRY_CODES;
@@ -31,30 +31,30 @@ class Money {
 
     static parse(value: string) {
         let [amount, currency] = value.split(" ")
-        return new Money(parseFloat(amount), currency.trim())
+        return new Money(parseFloat(amount || "0"), currency?.trim() || "XOF")
     }
 }
 
 export class Balance {
 
-    client: PaydunyaClient
-    axios: Axios
+    transport: Transport
+    axios: AxiosInstance
 
-    constructor(client: PaydunyaClient) {
-        this.client = client;
+    constructor(transport: Transport) {
+        this.transport = transport;
         this.axios = axios.create({
             baseURL: "https://app.paydunya.com/api/v2"
         });
         this.axios.interceptors.request.use((config) => {
-            return this.client.setup.extendRequestConfig(config);
+            return this.transport.setup.extendRequestConfig(config);
         })
     }
 
     async getAll() {
-        return this.client.axios.get<BalanceResult>(ApiRoutes.CHECK_BALANCE)
+        return this.axios.get<BalanceResult>(ApiRoutes.CHECK_BALANCE)
             .then((result) => {
                 if (result.data.success) {
-                    
+
                     let items: { [key in SupportedCountryCode]?: Money } = {};
                     Object.keys(SUPPORTED_COUNTRY_CODES).forEach((country) => {
                         (items as any)[country] = Money.parse((result.data as any)[`Balance ${country}`])
@@ -74,7 +74,7 @@ export class Balance {
     }
 
     async getAccountBalance(account: string) {
-        return this.client.axios.get<AccountBalanceResult>(`${ApiRoutes.CHECK_BALANCE}/${account}`)
+        return this.axios.get<AccountBalanceResult>(`${ApiRoutes.CHECK_BALANCE}/${account}`)
             .then((result) => {
                 if (result.data.success) {
                     return result.data

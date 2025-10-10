@@ -1,13 +1,13 @@
-import { Setup } from "./credentials";
-import axios, {Axios} from "axios"
+import { Credentials } from "./credentials";
+import axios, {AxiosInstance} from "axios"
 import { Store } from "./store";
 
-export class PaydunyaClient {
-    setup: Setup;
-    store?: Store;
-    axios: Axios;
+export class Transport {
+    setup: Credentials;
+    store: Store | undefined = undefined;
+    axios: AxiosInstance;
 
-    constructor(setup: Setup, store: Store | undefined = undefined) {
+    constructor(setup: Credentials, store: Store | undefined = undefined) {
         this.setup = setup;
         this.store = store;
 

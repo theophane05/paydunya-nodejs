@@ -1,6 +1,7 @@
 PAYDUNYA NodeJS API Client
 ======================================
 The [Node.JS](http://nodejs.org) library for [PAYDUNYA (paydunya.com)](https://paydunya.com).
+Fully supports Typescript.
 
 Built on the PAYDUNYA HTTP API (beta).
 
@@ -14,25 +15,39 @@ npm install --save paydunya
 
 Setup paydunya API keys.
 
-```javascript
-var setup = new paydunya.Setup({
-  masterKey: 'wQzk9ZwR-Qq9m-0hD0-zpud-je5coGC3FHKW',
-  privateKey: 'test_private_rMIdJM3PLLhLjyArx9tF3VURAF5',
-  publicKey: 'test_public_kb9Wo0Qpn8vNWMvMZOwwpvuTUja-OSDNhUqKoaTI4wc',
-  token: 'IivOiOxGJuWhc5znlIiK',
-  mode: 'test' // optional. use in sandbox mode.
-});
+```typescript
+import { PaydunyaClient } from "paydunya-sdk"
+let client = PaydunyaClient.fromCredentials({
+    masterKey: "your-master-key",
+    privateKey: "your-private-key",
+    publicKey: "your-public-key",
+    token: "your-token",
+    mode: "test" // or "live"
+})
 ```
 
-It might usually be suitable to put your API configuration in environment variables. In that case you can initialize `paydunya.Setup` without passing configuration parameters.
-The library will automatically detect the environment variables and use them.
-Auto-detected environment variables: `PAYDUNYA_MASTER_KEY`, `PAYDUNYA_PRIVATE_KEY`, `PAYDUNYA_PUBLIC_KEY`,  `PAYDUNYA_TOKEN`
+### Auto-Detection
+It might be suitable for you to put your API configuration in environment variables. 
+In that case, instantiate your client with these parameters.
 
+```typescript
+import { PaydunyaClient } from "paydunya-sdk"
+let client = PaydunyaClient.autoDetect()
+```
+
+In that case please pass the following keys in your environment:
+- `PAYDUNYA_MASTER_KEY`: the master key of your account,
+- `PAYDUNYA_PRIVATE_KEY`: your private key
+- `PAYDUNYA_PUBLIC_KEY`: your public key
+- `PAYDUNYA_TOKEN`: your paydunya token,
+- `PAYDUNYA_MODE`: your current environment. `test` or `live`.
+                    
 
 ## Checkout Store Configuration
 
-```javascript
-var store = new paydunya.Store({
+```typescript
+import {Store} from "paydunya-sdk/store"
+let store = new Store({
   name: 'Magasin Chez Sandra', // only name is required
   tagline: "L'élégance n'a pas de prix",
   phoneNumber: '336530583',

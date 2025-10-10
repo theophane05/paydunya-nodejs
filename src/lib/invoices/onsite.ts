@@ -1,4 +1,4 @@
-import { PaydunyaClient } from "../client";
+import { Transport } from "../transport";
 import { ApiRoutes, ResponseCode } from "../constants";
 import { ResponseError } from "../errors";
 import { Invoice } from "./invoice";
@@ -11,8 +11,8 @@ export class OnsiteInvoice extends Invoice {
   receiptURL?: string;
   customer?: any;
 
-  constructor(client: PaydunyaClient) {
-    super(client);
+  constructor(transport: Transport) {
+    super(transport);
   }
 
   /**
@@ -26,7 +26,7 @@ export class OnsiteInvoice extends Invoice {
         account_alias: customer,
       },
     };
-    return this.client.axios
+    return this.transport.axios
       .post(ApiRoutes.CREATE_ONSITEINVOCE, body)
       .then((response) => {
         if (response.data?.response_code === ResponseCode.success) {
@@ -56,7 +56,7 @@ export class OnsiteInvoice extends Invoice {
       confirm_token: confirmToken,
     };
 
-    return this.client.axios
+    return this.transport.axios
       .post(ApiRoutes.CHARGE_ONSITEINVOCE, body)
       .then((response) => {
         if (response.data?.response_code === ResponseCode.success) {

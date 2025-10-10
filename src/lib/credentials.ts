@@ -1,22 +1,22 @@
 import {InternalAxiosRequestConfig} from "axios"
-type Environment = "live" | "test"
+export type PaydunyaEnvironment = "live" | "test"
 
-interface SetupOptions {
+interface CredentialOptions {
     masterKey: string;
     privateKey: string;
     publicKey: string;
     token: string;
-    mode: Environment;
+    mode: PaydunyaEnvironment;
 }
 
-export class Setup {
+export class Credentials {
     masterKey: string
     privateKey: string
     publicKey: string
     token: string
-    mode: Environment
+    mode: PaydunyaEnvironment
 
-    constructor(options: SetupOptions) {
+    constructor(options: CredentialOptions) {
         this.masterKey = options.masterKey;
         this.privateKey = options.privateKey;
         this.publicKey = options.publicKey;

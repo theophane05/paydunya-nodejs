@@ -1,4 +1,4 @@
-import { PaydunyaClient } from "../client";
+import { Transport } from "../transport";
 import { PaymentChannel } from "../constants";
 
 interface InvoiceItem {
@@ -29,7 +29,7 @@ interface InvoiceData {
  * @param {object} store Instance of paydunya.Store
  */
 export class Invoice {
-  client: PaydunyaClient;
+  transport: Transport;
   returnURL?: string;
   cancelURL?: string;
   callbackURL?: string;
@@ -41,13 +41,13 @@ export class Invoice {
   channels: PaymentChannel[];
   totalAmount: number;
 
-  constructor(client: PaydunyaClient) {
-    this.client = client;
+  constructor(transport: Transport) {
+    this.transport = transport;
 
-    if (client.store?.return_url) this.returnURL = client.store!.return_url;
-    if (client.store?.cancel_url) this.cancelURL = client.store!.cancel_url;
-    if (client.store?.callback_url)
-      this.callbackURL = client.store!.callback_url;
+    if (transport.store?.return_url) this.returnURL = transport.store!.return_url;
+    if (transport.store?.cancel_url) this.cancelURL = transport.store!.cancel_url;
+    if (transport.store?.callback_url)
+      this.callbackURL = transport.store!.callback_url;
 
     this.description = "";
     this.items = {};
@@ -58,7 +58,7 @@ export class Invoice {
   }
 
   get store() {
-    return this.client.store;
+    return this.transport.store;
   }
 
   /**
@@ -83,7 +83,7 @@ export class Invoice {
       unit_price: unitPrice || 0,
       total_price: totalPrice || 0,
     };
-    if (description) this.items["item_" + position].description = description;
+    if (description) this.items["item_" + position]!.description = description;
 
     return this;
   }
@@ -117,7 +117,7 @@ export class Invoice {
    */
   addChannels(channels: PaymentChannel[] = []) {
     for (let i = 0; i < channels.length; i++) {
-      this.channels.push(channels[i]);
+      this.channels.push(channels[i]!);
     }
 
     return this;

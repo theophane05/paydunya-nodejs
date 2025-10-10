@@ -1,5 +1,5 @@
 import { Invoice } from "./invoice";
-import { PaydunyaClient } from "../client";
+import { Transport } from "../transport";
 import { ResponseError } from "../errors";
 import { ApiRoutes, ResponseCode, Status } from "../constants";
 
@@ -13,7 +13,7 @@ export default class CheckoutInvoice extends Invoice {
   receipt_identifier?: string;
   provider_reference?: string;
 
-  constructor(client: PaydunyaClient) {
+  constructor(client: Transport) {
     super(client);
   }
 
@@ -23,7 +23,7 @@ export default class CheckoutInvoice extends Invoice {
   async create() {
     const requestBody = this.asRequestBody();
 
-    return this.client.axios
+    return this.transport.axios
       .post(ApiRoutes.CREATE_INVOICE, requestBody)
       .then((res) => {
         if (res.data.response_code === ResponseCode.success) {
@@ -43,7 +43,7 @@ export default class CheckoutInvoice extends Invoice {
    */
   async confirm(givenToken?: string) {
     const token = givenToken ? givenToken : this.token;
-    this.client.axios
+    this.transport.axios
       .get(`${ApiRoutes.CONFIRM_INVOICE}${token}`)
       .then((res) => {
         const body = res.data;

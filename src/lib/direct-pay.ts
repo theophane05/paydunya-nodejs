@@ -1,17 +1,17 @@
-import util from "util";
-import { PaydunyaClient } from "./client";
+import { Transport } from "./transport";
 import { ResponseError } from "./errors";
 import { ApiRoutes, ResponseCode } from "./constants";
+import util from "util"
 
 export class DirectPay {
-  private client: PaydunyaClient;
+  private transport: Transport;
 
   public responseText?: string;
   public description?: string;
   public transactionID?: string;
 
-  constructor(client: PaydunyaClient) {
-    this.client = client;
+  constructor(transport: Transport) {
+    this.transport = transport;
   }
 
   /**
@@ -25,7 +25,7 @@ export class DirectPay {
       amount: Number(amount),
     };
 
-    const res = await this.client.axios.post(ApiRoutes.CREDIT_ACCOUNT, body);
+    const res = await this.transport.axios.post(ApiRoutes.CREDIT_ACCOUNT, body);
 
     if (res.data.response_code === ResponseCode.success) {
       this.responseText = res.data.response_text;
