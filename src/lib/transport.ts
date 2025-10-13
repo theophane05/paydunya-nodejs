@@ -5,17 +5,17 @@ import { Store } from "./store";
 export class Transport {
     setup: Credentials;
     store: Store | undefined = undefined;
-    axios: AxiosInstance;
+    client: AxiosInstance;
 
     constructor(setup: Credentials, store: Store | undefined = undefined) {
         this.setup = setup;
         this.store = store;
 
-        this.axios = axios.create({
+        this.client = axios.create({
             baseURL: this.baseURL
         });
 
-        this.axios.interceptors.request.use((config) => {
+        this.client.interceptors.request.use((config) => {
             return this.setup.extendRequestConfig(config)
         });
     }

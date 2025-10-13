@@ -9,7 +9,7 @@ export enum ResponseCode {
   success = "00",
 }
 
-export enum ApiRoutes {
+export enum Endpoints {
   CREATE_INVOICE = "/checkout-invoice/create",
   CONFIRM_INVOICE = "/checkout-invoice/confirm/",
   CREATE_ONSITEINVOCE = "/opr/create",

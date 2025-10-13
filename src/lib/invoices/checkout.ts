@@ -1,7 +1,7 @@
 import { Invoice } from "./invoice";
 import { Transport } from "../transport";
 import { ResponseError } from "../errors";
-import { ApiRoutes, ResponseCode, InvoiceStatus } from "../constants";
+import { Endpoints, ResponseCode, InvoiceStatus } from "../constants";
 
 
 export default class CheckoutInvoice extends Invoice {
@@ -26,8 +26,8 @@ export default class CheckoutInvoice extends Invoice {
   async create() {
     const requestBody = this.asRequestBody();
 
-    return this.transport.axios
-      .post(ApiRoutes.CREATE_INVOICE, requestBody)
+    return this.transport.client
+      .post(Endpoints.CREATE_INVOICE, requestBody)
       .then((res) => {
         if (res.data.response_code === ResponseCode.success) {
           this.token = res.data.token;
@@ -46,8 +46,8 @@ export default class CheckoutInvoice extends Invoice {
    */
   async getTokenStatus(givenToken?: string) {
     const token = givenToken ? givenToken : this.token;
-    return this.transport.axios
-      .get(`${ApiRoutes.CONFIRM_INVOICE}${token}`)
+    return this.transport.client
+      .get(`${Endpoints.CONFIRM_INVOICE}${token}`)
       .then((res) => {
         const body = res.data;
 
@@ -66,6 +66,8 @@ export default class CheckoutInvoice extends Invoice {
             this.returnURL = body.actions.return_url;
           }
 
+          this.totalAmount = body.invoice.total_amount;
+
           if (this.status === InvoiceStatus.COMPLETED) {
             this.customer = body.customer;
             this.receiptURL = body.receipt_url;
@@ -75,8 +77,7 @@ export default class CheckoutInvoice extends Invoice {
               this.customData = body.custom_data;
             }
           }
-
-          this.totalAmount = body.invoice.total_amount;
+        
           return this.asObject;
         } else {
           const e = new ResponseError(

@@ -18,3 +18,4 @@ test/test-results.xml
 # Bower stuff.
 bower_components/
 dist/paydunya-node.debug.js
+__tests__/.env.local
