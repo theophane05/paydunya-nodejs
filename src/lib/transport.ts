@@ -1,4 +1,4 @@
-import { Credentials } from "./credentials";
+import { Credentials, PaydunyaEnvironment } from "./credentials";
 import axios, {AxiosInstance} from "axios"
 import { Store } from "./store";
 
@@ -21,7 +21,7 @@ export class Transport {
     }
 
     get baseURL() {
-        return this.setup.mode === "test" ? 'https://app.paydunya.com/sandbox-api/v1': 'https://app.paydunya.com/api/v1'
+        return this.setup.mode === PaydunyaEnvironment.TEST ? 'https://app.paydunya.com/sandbox-api/v1': 'https://app.paydunya.com/api/v1'
     }
 
 }

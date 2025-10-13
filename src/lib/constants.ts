@@ -1,4 +1,4 @@
-export enum Status {
+export enum InvoiceStatus {
   COMPLETED = "completed",
   CANCELLED = "cancelled",
   PENDING = "pending",
