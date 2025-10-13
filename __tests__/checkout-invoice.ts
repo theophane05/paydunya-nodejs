@@ -1,4 +1,3 @@
-import { strict as assert } from 'assert';
 import { PaydunyaClient } from '../src/lib';
 import { Store } from '../src/lib/store';
 import { PaydunyaEnvironment } from '../src/lib/credentials';
