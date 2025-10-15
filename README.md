@@ -9,7 +9,7 @@ Built on the PAYDUNYA HTTP API.
 ## Installation
 
 ```typescript
-npm install --save paydunya-sdk
+npm install --save paydunya
 ```
 
 ## API configuration
@@ -17,13 +17,14 @@ npm install --save paydunya-sdk
 Setup paydunya API keys.
 
 ```typescript
-import { PaydunyaClient } from "paydunya-sdk"
+import { PaydunyaClient, PaydunyaEnvironment } from "paydunya"
+
 let client = PaydunyaClient.fromCredentials({
     masterKey: "your-master-key",
     privateKey: "your-private-key",
     publicKey: "your-public-key",
     token: "your-token",
-    mode: "test" // or "live"
+    mode: PaydunyaEnvironment.TEST // or PaydunyaEnvironment.LIVE
 })
 ```
 
@@ -32,8 +33,12 @@ It might be suitable for you to put your API configuration in environment variab
 In that case, instantiate your client with these parameters.
 
 ```typescript
-import { PaydunyaClient } from "paydunya-sdk"
-let client = PaydunyaClient.autoDetect()
+import { PaydunyaClient, PaydunyaEnvironment } from "paydunya"
+
+// if you want automatic environment detection
+let client = PaydunyaClient.autoDetect() 
+// if you want manual environment configuration
+let client = PaydunyaClient.autoDetect(PaydunyaEnvironment.LIVE) // Or PaydunyaEnvironment.TEST
 ```
 
 In that case please pass the following keys in your environment:
@@ -47,13 +52,13 @@ In that case please pass the following keys in your environment:
 ## Checkout Store Configuration
 
 ```typescript
-import {Store} from "paydunya-sdk/store"
+import { Store } from "paydunya"
 let store = new Store({
-  name: 'Magasin Chez Sandra', // only name is required
-  tagline: "L'élégance n'a pas de prix",
-  phoneNumber: '336530583',
-  postalAddress: 'Dakar Plateau - Etablissement kheweul',
-  logoURL: 'http://www.chez-sandra.sn/logo.png'
+    name: 'Magasin Chez Sandra', // only name is required
+    tagline: "L'élégance n'a pas de prix",
+    phone_number: '336530583',
+    postal_address: 'Dakar Plateau - Etablissement kheweul',
+    logo_url: 'http://www.chez-sandra.sn/logo.png'
 });
 ```
 
@@ -201,30 +206,14 @@ invoice.confirm(token)
   });
 ```
 
-## DirectPay
-You can pay any paydunya account directly via your third party apps. This is particularly excellent for implementing your own Adaptive payment solutions on top of paydunya.
-
-```typescript
-var directPay = new client.directpayInstance(setup);
-directPay.creditAccount('alioune@gmail.com', 5000)
-  .then(function (result){
-    result.description;
-    result.responseText;
-    result.transactionID;
-  })
-  .catch(function (e) {
-    console.log(e);
-  });
-```
-
 # Running Tests
 To run tests just setup the API configuration environment variables. An internet connection is required for some of the tests to pass.
 
 ```typescript
-npm install -g mocha
+npm install
 ```
 Then
-`npm test` or `mocha`
+`npm test`
 
 ## License
 MIT
