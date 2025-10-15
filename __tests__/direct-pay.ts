@@ -5,6 +5,9 @@ import { join } from 'path';
 
 config({ path: join(__dirname, ".env.local") })
 
+/**
+ * Direct Pay endpoint seems to be deprecated. endpoint not found on the server
+ */
 describe('DirectPay', function () {
     let client = PaydunyaClient.autoDetect(PaydunyaEnvironment.TEST);
     let directPay = client.directpayInstance();

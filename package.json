@@ -4,7 +4,7 @@
   "description": "PAYDUNYA Node.JS Library",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha test",
+    "test": "jest test",
     "build-debug": "browserify lib/index.js -o dist/paydunya-node.debug.js",
     "build": "rimraf dist && tsc"
   },

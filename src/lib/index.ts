@@ -5,6 +5,7 @@ import CheckoutInvoice from "./invoices/checkout";
 import { OnsiteInvoice } from "./invoices/onsite";
 import { Credentials, PaydunyaEnvironment } from "./credentials";
 import { Store } from "./store";
+import { Invoice } from "./invoices/invoice";
 
 export class PaydunyaClient {
     transport: Transport;
@@ -19,6 +20,10 @@ export class PaydunyaClient {
 
     set store(store: Store) {
         this.transport.store = store;
+    }
+
+    invoiceInstance() {
+        return new Invoice(this.transport);
     }
 
     checkoutInvoiceInstance() {

@@ -26,16 +26,14 @@ export class DirectPay {
     };
     return this.transport.client.post(Endpoints.CREDIT_ACCOUNT, body)
       .then((res) => {
-        console.log(res.data);
-
         if (res.data.response_code === ResponseCode.success) {
           this.responseText = res.data.response_text;
           this.description = res.data.description;
           this.transactionID = res.data.transaction_id;
-          return { 
-            responseText: this.responseText, 
-            description: this.description, 
-            transactionID: this.transactionID 
+          return {
+            responseText: this.responseText,
+            description: this.description,
+            transactionID: this.transactionID
           }
         } else {
           const e = new ResponseError(
@@ -48,10 +46,6 @@ export class DirectPay {
           );
           throw e;
         }
-      })
-      .catch((err) => {
-        console.log(err);
-        return undefined;
-      })
+      });
   }
 }

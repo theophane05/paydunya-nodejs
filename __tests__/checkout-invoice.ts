@@ -14,14 +14,13 @@ describe('CheckoutInvoice', function () {
         const client = PaydunyaClient.autoDetect(PaydunyaEnvironment.TEST)
         client.store = new Store({ name: "Magasin Chez Sandra" })
         const invoice = client.checkoutInvoiceInstance();
-
         invoice.totalAmount = 1000;
 
         invoice.create()
             .then((output) => {
                 expect(output.url).toBeTruthy()
                 expect(output.token).toBeTruthy()
-                token = output.token || '';
+                token = output.token || "";
                 done();
             })
             .catch(done);
