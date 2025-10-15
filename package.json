@@ -1,5 +1,5 @@
 {
-  "name": "paydunya-sdk",
+  "name": "paydunya",
   "version": "1.0.13",
   "description": "PAYDUNYA Node.JS Library",
   "main": "dist/index.js",
