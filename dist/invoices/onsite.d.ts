@@ -1,5 +1,9 @@
 import { Transport } from "../transport";
 import { Invoice } from "./invoice";
+/**
+ * @deprecated
+ * These endpoints are not working anymore. Throwing 404 errors
+ */
 export declare class OnsiteInvoice extends Invoice {
     token?: string;
     oprToken?: string;

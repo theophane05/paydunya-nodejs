@@ -2,7 +2,6 @@ import { Transport } from "./transport";
 import { ResponseError } from "./errors";
 import { Endpoints, ResponseCode } from "./constants";
 import util from "util"
-
 /**
  * @deprecated
  * This endpoints are not working anymore. Throwing 404 errors
@@ -41,11 +40,7 @@ export class DirectPay {
           }
         } else {
           const e = new ResponseError(
-            util.format(
-              "Failed to credit account. Please ensure %s and %s are valid OR check your account balance.",
-              account,
-              amount
-            ),
+            `Failed to credit account. Please ensure ${account} and ${amount} are valid OR check your account balance.`,
             res.data
           );
           throw e;

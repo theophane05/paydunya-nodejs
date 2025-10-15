@@ -31,7 +31,7 @@ class Balance {
         });
     }
     async getAll() {
-        return this.axios.get(constants_1.ApiRoutes.CHECK_BALANCE)
+        return this.axios.get(constants_1.Endpoints.CHECK_BALANCE)
             .then((result) => {
             if (result.data.success) {
                 let items = {};
@@ -50,7 +50,7 @@ class Balance {
         }
     }
     async getAccountBalance(account) {
-        return this.axios.get(`${constants_1.ApiRoutes.CHECK_BALANCE}/${account}`)
+        return this.axios.get(`${constants_1.Endpoints.CHECK_BALANCE}/${account}`)
             .then((result) => {
             if (result.data.success) {
                 return result.data;

@@ -4,6 +4,10 @@ exports.OnsiteInvoice = void 0;
 const constants_1 = require("../constants");
 const errors_1 = require("../errors");
 const invoice_1 = require("./invoice");
+/**
+ * @deprecated
+ * These endpoints are not working anymore. Throwing 404 errors
+ */
 class OnsiteInvoice extends invoice_1.Invoice {
     token;
     oprToken;
@@ -25,8 +29,8 @@ class OnsiteInvoice extends invoice_1.Invoice {
                 account_alias: customer,
             },
         };
-        return this.transport.axios
-            .post(constants_1.ApiRoutes.CREATE_ONSITEINVOCE, body)
+        return this.transport.client
+            .post(constants_1.Endpoints.CREATE_ONSITEINVOCE, body)
             .then((response) => {
             if (response.data?.response_code === constants_1.ResponseCode.success) {
                 return {
@@ -51,8 +55,8 @@ class OnsiteInvoice extends invoice_1.Invoice {
             token: oprToken,
             confirm_token: confirmToken,
         };
-        return this.transport.axios
-            .post(constants_1.ApiRoutes.CHARGE_ONSITEINVOCE, body)
+        return this.transport.client
+            .post(constants_1.Endpoints.CHARGE_ONSITEINVOCE, body)
             .then((response) => {
             if (response.data?.response_code === constants_1.ResponseCode.success) {
                 return {

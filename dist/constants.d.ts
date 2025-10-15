@@ -1,4 +1,4 @@
-export declare enum Status {
+export declare enum InvoiceStatus {
     COMPLETED = "completed",
     CANCELLED = "cancelled",
     PENDING = "pending",
@@ -7,7 +7,7 @@ export declare enum Status {
 export declare enum ResponseCode {
     success = "00"
 }
-export declare enum ApiRoutes {
+export declare enum Endpoints {
     CREATE_INVOICE = "/checkout-invoice/create",
     CONFIRM_INVOICE = "/checkout-invoice/confirm/",
     CREATE_ONSITEINVOCE = "/opr/create",

@@ -9,20 +9,46 @@ export default class CheckoutInvoice extends Invoice {
     receiptURL?: string;
     receipt_identifier?: string;
     provider_reference?: string;
+    hash?: string;
     constructor(client: Transport);
     /**
      * Create invoice
      */
-    create(): Promise<void>;
+    create(): Promise<{
+        token: string | undefined;
+        url: string | undefined;
+        status: string | undefined;
+        hash: string | undefined;
+        responseText: string | undefined;
+        customer: any;
+        receiptURL: string | undefined;
+        receipt_identifier: string | undefined;
+        provider_reference: string | undefined;
+        customData: Record<string, any>;
+        totalAmount: number;
+    }>;
     /**
      * Get token status.
      * @param  {string} givenToken Invoice token
      */
-    confirm(givenToken?: string): Promise<void>;
+    getTokenStatus(givenToken?: string): Promise<{
+        token: string | undefined;
+        url: string | undefined;
+        status: string | undefined;
+        hash: string | undefined;
+        responseText: string | undefined;
+        customer: any;
+        receiptURL: string | undefined;
+        receipt_identifier: string | undefined;
+        provider_reference: string | undefined;
+        customData: Record<string, any>;
+        totalAmount: number;
+    }>;
     get asObject(): {
         token: string | undefined;
         url: string | undefined;
         status: string | undefined;
+        hash: string | undefined;
         responseText: string | undefined;
         customer: any;
         receiptURL: string | undefined;

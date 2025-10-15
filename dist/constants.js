@@ -1,26 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SUPPORTED_COUNTRY_CODES = exports.PaymentChannel = exports.ApiRoutes = exports.ResponseCode = exports.Status = void 0;
-var Status;
-(function (Status) {
-    Status["COMPLETED"] = "completed";
-    Status["CANCELLED"] = "cancelled";
-    Status["PENDING"] = "pending";
-    Status["FAILED"] = "failed";
-})(Status || (exports.Status = Status = {}));
+exports.SUPPORTED_COUNTRY_CODES = exports.PaymentChannel = exports.Endpoints = exports.ResponseCode = exports.InvoiceStatus = void 0;
+var InvoiceStatus;
+(function (InvoiceStatus) {
+    InvoiceStatus["COMPLETED"] = "completed";
+    InvoiceStatus["CANCELLED"] = "cancelled";
+    InvoiceStatus["PENDING"] = "pending";
+    InvoiceStatus["FAILED"] = "failed";
+})(InvoiceStatus || (exports.InvoiceStatus = InvoiceStatus = {}));
 var ResponseCode;
 (function (ResponseCode) {
     ResponseCode["success"] = "00";
 })(ResponseCode || (exports.ResponseCode = ResponseCode = {}));
-var ApiRoutes;
-(function (ApiRoutes) {
-    ApiRoutes["CREATE_INVOICE"] = "/checkout-invoice/create";
-    ApiRoutes["CONFIRM_INVOICE"] = "/checkout-invoice/confirm/";
-    ApiRoutes["CREATE_ONSITEINVOCE"] = "/opr/create";
-    ApiRoutes["CHARGE_ONSITEINVOCE"] = "/opr/charge";
-    ApiRoutes["CREDIT_ACCOUNT"] = "/direct-pay/credit-account";
-    ApiRoutes["CHECK_BALANCE"] = "/disburse/check-balance";
-})(ApiRoutes || (exports.ApiRoutes = ApiRoutes = {}));
+var Endpoints;
+(function (Endpoints) {
+    Endpoints["CREATE_INVOICE"] = "/checkout-invoice/create";
+    Endpoints["CONFIRM_INVOICE"] = "/checkout-invoice/confirm/";
+    Endpoints["CREATE_ONSITEINVOCE"] = "/opr/create";
+    Endpoints["CHARGE_ONSITEINVOCE"] = "/opr/charge";
+    Endpoints["CREDIT_ACCOUNT"] = "/direct-pay/credit-account";
+    Endpoints["CHECK_BALANCE"] = "/disburse/check-balance";
+})(Endpoints || (exports.Endpoints = Endpoints = {}));
 var PaymentChannel;
 (function (PaymentChannel) {
     PaymentChannel["Card"] = "card";

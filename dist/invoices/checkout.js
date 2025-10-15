@@ -12,6 +12,7 @@ class CheckoutInvoice extends invoice_1.Invoice {
     receiptURL;
     receipt_identifier;
     provider_reference;
+    hash;
     constructor(client) {
         super(client);
     }
@@ -20,13 +21,13 @@ class CheckoutInvoice extends invoice_1.Invoice {
      */
     async create() {
         const requestBody = this.asRequestBody();
-        return this.transport.axios
-            .post(constants_1.ApiRoutes.CREATE_INVOICE, requestBody)
+        return this.transport.client
+            .post(constants_1.Endpoints.CREATE_INVOICE, requestBody)
             .then((res) => {
             if (res.data.response_code === constants_1.ResponseCode.success) {
                 this.token = res.data.token;
                 this.url = res.data.response_text;
-                return this.confirm(this.token);
+                return this.getTokenStatus(this.token);
             }
             else {
                 const e = new errors_1.ResponseError("Failed to create invoice.", res.data);
@@ -38,16 +39,26 @@ class CheckoutInvoice extends invoice_1.Invoice {
      * Get token status.
      * @param  {string} givenToken Invoice token
      */
-    async confirm(givenToken) {
+    async getTokenStatus(givenToken) {
         const token = givenToken ? givenToken : this.token;
-        this.transport.axios
-            .get(`${constants_1.ApiRoutes.CONFIRM_INVOICE}${token}`)
+        return this.transport.client
+            .get(`${constants_1.Endpoints.CONFIRM_INVOICE}${token}`)
             .then((res) => {
             const body = res.data;
             if (body.response_code === constants_1.ResponseCode.success) {
                 this.status = body.status;
                 this.responseText = body.response_text;
-                if (this.status === constants_1.Status.COMPLETED) {
+                this.hash = body?.hash;
+                this.items = body.invoice.items;
+                this.taxes = body.taxes;
+                this.description = body.description;
+                if (body.actions) {
+                    this.cancelURL = body.actions.cancel_url;
+                    this.callbackURL = body.actions.callback_url;
+                    this.returnURL = body.actions.return_url;
+                }
+                this.totalAmount = body.invoice.total_amount;
+                if (this.status === constants_1.InvoiceStatus.COMPLETED) {
                     this.customer = body.customer;
                     this.receiptURL = body.receipt_url;
                     this.receipt_identifier = body.receipt_identifier;
@@ -56,7 +67,6 @@ class CheckoutInvoice extends invoice_1.Invoice {
                         this.customData = body.custom_data;
                     }
                 }
-                this.totalAmount = body.invoice.total_amount;
                 return this.asObject;
             }
             else {
@@ -70,6 +80,7 @@ class CheckoutInvoice extends invoice_1.Invoice {
             token: this.token,
             url: this.url,
             status: this.status,
+            hash: this.hash,
             responseText: this.responseText,
             customer: this.customer,
             receiptURL: this.receiptURL,

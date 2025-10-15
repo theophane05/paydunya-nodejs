@@ -33,6 +33,7 @@
     "declaration": true
   },
   "exclude": [
-    "src/examples"
-  ],
+    "src/examples",
+    "__tests__",
+  ]
 }

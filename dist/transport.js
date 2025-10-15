@@ -4,23 +4,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Transport = void 0;
+const credentials_1 = require("./credentials");
 const axios_1 = __importDefault(require("axios"));
 class Transport {
     setup;
     store = undefined;
-    axios;
+    client;
     constructor(setup, store = undefined) {
         this.setup = setup;
         this.store = store;
-        this.axios = axios_1.default.create({
+        this.client = axios_1.default.create({
             baseURL: this.baseURL
         });
-        this.axios.interceptors.request.use((config) => {
+        this.client.interceptors.request.use((config) => {
             return this.setup.extendRequestConfig(config);
         });
     }
     get baseURL() {
-        return this.setup.mode === "test" ? 'https://app.paydunya.com/sandbox-api/v1' : 'https://app.paydunya.com/api/v1';
+        return this.setup.mode === credentials_1.PaydunyaEnvironment.TEST ? 'https://app.paydunya.com/sandbox-api/v1' : 'https://app.paydunya.com/api/v1';
     }
 }
 exports.Transport = Transport;

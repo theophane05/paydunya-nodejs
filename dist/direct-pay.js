@@ -1,12 +1,12 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DirectPay = void 0;
 const errors_1 = require("./errors");
 const constants_1 = require("./constants");
-const util_1 = __importDefault(require("util"));
+/**
+ * @deprecated
+ * This endpoints are not working anymore. Throwing 404 errors
+ */
 class DirectPay {
     transport;
     responseText;
@@ -25,16 +25,23 @@ class DirectPay {
             account_alias: account,
             amount: Number(amount),
         };
-        const res = await this.transport.axios.post(constants_1.ApiRoutes.CREDIT_ACCOUNT, body);
-        if (res.data.response_code === constants_1.ResponseCode.success) {
-            this.responseText = res.data.response_text;
-            this.description = res.data.description;
-            this.transactionID = res.data.transaction_id;
-        }
-        else {
-            const e = new errors_1.ResponseError(util_1.default.format("Failed to credit account. Please ensure %s and %s are valid OR check your account balance.", account, amount), res.data);
-            throw e;
-        }
+        return this.transport.client.post(constants_1.Endpoints.CREDIT_ACCOUNT, body)
+            .then((res) => {
+            if (res.data.response_code === constants_1.ResponseCode.success) {
+                this.responseText = res.data.response_text;
+                this.description = res.data.description;
+                this.transactionID = res.data.transaction_id;
+                return {
+                    responseText: this.responseText,
+                    description: this.description,
+                    transactionID: this.transactionID
+                };
+            }
+            else {
+                const e = new errors_1.ResponseError(`Failed to credit account. Please ensure ${account} and ${amount} are valid OR check your account balance.`, res.data);
+                throw e;
+            }
+        });
     }
 }
 exports.DirectPay = DirectPay;

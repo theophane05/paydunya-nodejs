@@ -1,18 +1,21 @@
 import { InternalAxiosRequestConfig } from "axios";
-type Environment = "live" | "test";
+export declare enum PaydunyaEnvironment {
+    LIVE = "live",
+    TEST = "test"
+}
 interface CredentialOptions {
     masterKey: string;
     privateKey: string;
     publicKey: string;
     token: string;
-    mode: Environment;
+    mode: PaydunyaEnvironment;
 }
 export declare class Credentials {
     masterKey: string;
     privateKey: string;
     publicKey: string;
     token: string;
-    mode: Environment;
+    mode: PaydunyaEnvironment;
     constructor(options: CredentialOptions);
     extendRequestConfig(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig<any>;
 }

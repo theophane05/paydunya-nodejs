@@ -101,7 +101,7 @@ class Invoice {
      */
     asRequestBody() {
         if (this.totalAmount <= 0)
-            throw new Error("Invalid parameters. Initialize Invoice with valid instances of Setup and Store. Total amount must also be set.\neg: var invoice = new Invoice; invoice.init(setup, store); invoice.setTotalAmount(40)");
+            throw new Error("Invalid parameters. Initialize Invoice with valid instances of Setup and Store. Total amount must also be set.");
         const body = {
             invoice: {
                 total_amount: this.totalAmount,
