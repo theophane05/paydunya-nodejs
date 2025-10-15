@@ -3,6 +3,10 @@ import { Endpoints, ResponseCode } from "../constants";
 import { ResponseError } from "../errors";
 import { Invoice } from "./invoice";
 
+/**
+ * @deprecated
+ * These endpoints are not working anymore. Throwing 404 errors
+ */
 export class OnsiteInvoice extends Invoice {
   token?: string;
   oprToken?: string;

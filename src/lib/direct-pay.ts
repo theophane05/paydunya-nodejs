@@ -3,6 +3,10 @@ import { ResponseError } from "./errors";
 import { Endpoints, ResponseCode } from "./constants";
 import util from "util"
 
+/**
+ * @deprecated
+ * This endpoints are not working anymore. Throwing 404 errors
+ */
 export class DirectPay {
   private transport: Transport;
 
