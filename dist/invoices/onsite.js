@@ -74,4 +74,3 @@ class OnsiteInvoice extends invoice_1.Invoice {
     }
 }
 exports.OnsiteInvoice = OnsiteInvoice;
-//# sourceMappingURL=onsite.js.map

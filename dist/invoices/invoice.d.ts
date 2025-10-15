@@ -36,7 +36,7 @@ export declare class Invoice {
     channels: PaymentChannel[];
     totalAmount: number;
     constructor(transport: Transport);
-    get store(): import("../store").Store | undefined;
+    get store(): import("..").Store | undefined;
     /**
      * Add an item to invoice
      * @param {string} name

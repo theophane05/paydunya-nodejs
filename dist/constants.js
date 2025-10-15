@@ -50,4 +50,3 @@ exports.SUPPORTED_COUNTRY_CODES = {
     ML: "ML",
     BF: "BF"
 };
-//# sourceMappingURL=constants.js.map

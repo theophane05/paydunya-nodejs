@@ -92,4 +92,3 @@ class CheckoutInvoice extends invoice_1.Invoice {
     }
 }
 exports.default = CheckoutInvoice;
-//# sourceMappingURL=checkout.js.map

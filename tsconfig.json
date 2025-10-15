@@ -11,7 +11,7 @@
     // For nodejs:
     "lib": ["esnext"],
     "types": ["node", "jest"],
-    "sourceMap": true,
+    "sourceMap": false,
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,

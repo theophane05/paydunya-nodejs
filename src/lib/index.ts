@@ -30,10 +30,16 @@ export class PaydunyaClient {
         return new CheckoutInvoice(this.transport);
     }
 
+    /**
+     * @deprecated - OnsiteInvoice endpoint seems to be deprecated
+     */
     onsiteInvoiceInstance() {
         return new OnsiteInvoice(this.transport);
     }
 
+    /**
+     * @deprecated - Direct Pay endpoint seems to be deprecated
+     */
     directpayInstance() {
         return new DirectPay(this.transport);
     }
@@ -79,3 +85,11 @@ export class PaydunyaClient {
     }
 
 }
+
+export * from "./balance";
+export * from "./credentials";
+export * from "./errors";
+export * from "./invoices/checkout";
+export * from "./invoices/invoice";
+export * from "./store";
+export * from "./transport";

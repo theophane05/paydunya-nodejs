@@ -45,4 +45,3 @@ class DirectPay {
     }
 }
 exports.DirectPay = DirectPay;
-//# sourceMappingURL=direct-pay.js.map

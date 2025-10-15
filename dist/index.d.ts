@@ -13,10 +13,23 @@ export declare class PaydunyaClient {
     set store(store: Store);
     invoiceInstance(): Invoice;
     checkoutInvoiceInstance(): CheckoutInvoice;
+    /**
+     * @deprecated - OnsiteInvoice endpoint seems to be deprecated
+     */
     onsiteInvoiceInstance(): OnsiteInvoice;
+    /**
+     * @deprecated - Direct Pay endpoint seems to be deprecated
+     */
     directpayInstance(): DirectPay;
     balanceInstance(): Balance;
     static fromCredentialsInstance(credentials: Credentials): PaydunyaClient;
     static fromCredentials(params: ConstructorParameters<typeof Credentials>[0]): PaydunyaClient;
     static autoDetect(mode?: PaydunyaEnvironment): PaydunyaClient;
 }
+export * from "./balance";
+export * from "./credentials";
+export * from "./errors";
+export * from "./invoices/checkout";
+export * from "./invoices/invoice";
+export * from "./store";
+export * from "./transport";

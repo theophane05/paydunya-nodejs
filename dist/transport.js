@@ -25,4 +25,3 @@ class Transport {
     }
 }
 exports.Transport = Transport;
-//# sourceMappingURL=transport.js.map

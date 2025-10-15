@@ -60,4 +60,3 @@ class Balance {
     }
 }
 exports.Balance = Balance;
-//# sourceMappingURL=balance.js.map

@@ -29,4 +29,3 @@ class Credentials {
     }
 }
 exports.Credentials = Credentials;
-//# sourceMappingURL=credentials.js.map
