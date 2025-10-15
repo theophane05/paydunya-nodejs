@@ -61,6 +61,9 @@ export class PaydunyaClient {
     }
 
     static autoDetect(mode: PaydunyaEnvironment = PaydunyaEnvironment.LIVE) {
+        if(globalThis.process === undefined) {
+            throw new Error("Auto detection of credentials is only available in NodeJS environment");
+        }
         let client = new PaydunyaClient(
             new Transport(
                 new Credentials({
