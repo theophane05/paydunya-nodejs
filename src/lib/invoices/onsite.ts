@@ -1,5 +1,5 @@
 import { Transport } from "../transport";
-import { ApiRoutes, ResponseCode } from "../constants";
+import { Endpoints, ResponseCode } from "../constants";
 import { ResponseError } from "../errors";
 import { Invoice } from "./invoice";
 
@@ -26,8 +26,8 @@ export class OnsiteInvoice extends Invoice {
         account_alias: customer,
       },
     };
-    return this.transport.axios
-      .post(ApiRoutes.CREATE_ONSITEINVOCE, body)
+    return this.transport.client
+      .post(Endpoints.CREATE_ONSITEINVOCE, body)
       .then((response) => {
         if (response.data?.response_code === ResponseCode.success) {
           return {
@@ -56,8 +56,8 @@ export class OnsiteInvoice extends Invoice {
       confirm_token: confirmToken,
     };
 
-    return this.transport.axios
-      .post(ApiRoutes.CHARGE_ONSITEINVOCE, body)
+    return this.transport.client
+      .post(Endpoints.CHARGE_ONSITEINVOCE, body)
       .then((response) => {
         if (response.data?.response_code === ResponseCode.success) {
           return {

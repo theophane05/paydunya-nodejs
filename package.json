@@ -1,10 +1,10 @@
 {
-  "name": "paydunya",
+  "name": "paydunya-sdk",
   "version": "1.0.13",
   "description": "PAYDUNYA Node.JS Library",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha test",
+    "test": "jest test",
     "build-debug": "browserify lib/index.js -o dist/paydunya-node.debug.js",
     "build": "rimraf dist && tsc"
   },
@@ -29,9 +29,16 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.7.0",
     "browserify": "^10.2.4",
+    "dotenv": "^17.2.3",
+    "jest": "^30.2.0",
     "rimraf": "^6.0.1",
+    "ts-jest": "^29.4.5",
     "uglifyify": "^3.0.1"
-  }
+  },
+  "files": [
+    "dist/**/*"
+  ]
 }

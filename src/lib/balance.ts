@@ -1,6 +1,6 @@
 import { Transport } from "./transport";
 import axios, { AxiosInstance } from "axios";
-import { ApiRoutes, SUPPORTED_COUNTRY_CODES } from "./constants";
+import { Endpoints, SUPPORTED_COUNTRY_CODES } from "./constants";
 
 type SupportedCountryCode = keyof typeof SUPPORTED_COUNTRY_CODES;
 
@@ -51,7 +51,7 @@ export class Balance {
     }
 
     async getAll() {
-        return this.axios.get<BalanceResult>(ApiRoutes.CHECK_BALANCE)
+        return this.axios.get<BalanceResult>(Endpoints.CHECK_BALANCE)
             .then((result) => {
                 if (result.data.success) {
 
@@ -74,7 +74,7 @@ export class Balance {
     }
 
     async getAccountBalance(account: string) {
-        return this.axios.get<AccountBalanceResult>(`${ApiRoutes.CHECK_BALANCE}/${account}`)
+        return this.axios.get<AccountBalanceResult>(`${Endpoints.CHECK_BALANCE}/${account}`)
             .then((result) => {
                 if (result.data.success) {
                     return result.data

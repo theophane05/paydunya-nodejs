@@ -10,7 +10,7 @@
     "target": "esnext",
     // For nodejs:
     "lib": ["esnext"],
-    "types": ["node"],
+    "types": ["node", "jest"],
     "sourceMap": true,
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
@@ -33,6 +33,6 @@
     "declaration": true
   },
   "exclude": [
-  "src/examples"
+    "src/examples"
   ],
 }

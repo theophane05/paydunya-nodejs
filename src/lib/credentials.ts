@@ -1,5 +1,9 @@
-import {InternalAxiosRequestConfig} from "axios"
-export type PaydunyaEnvironment = "live" | "test"
+import { InternalAxiosRequestConfig } from "axios"
+
+export enum PaydunyaEnvironment {
+    LIVE = "live",
+    TEST = "test"
+}
 
 interface CredentialOptions {
     masterKey: string;
@@ -26,10 +30,11 @@ export class Credentials {
 
     extendRequestConfig(config: InternalAxiosRequestConfig) {
         config.headers
-        .set("Content-Type", "application/json")
-        .set("PAYDUNYA-MASTER-KEY", this.masterKey)
-        .set("PAYDUNYA-PRIVATE-KEY", this.privateKey)
-        .set("PAYDUNYA-TOKEN", this.token)
+            .set("Content-Type", "application/json")
+            .set("PAYDUNYA-MASTER-KEY", this.masterKey)
+            .set("PAYDUNYA-PRIVATE-KEY", this.privateKey)
+            .set("PAYDUNYA-TOKEN", this.token)
+
         return config
     }
 
